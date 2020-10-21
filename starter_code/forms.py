@@ -1,20 +1,35 @@
 from datetime import datetime
 from flask_wtf import Form
-from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField
+from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
 from wtforms.validators import DataRequired, AnyOf, URL
+
 
 class ShowForm(Form):
     artist_id = StringField(
         'artist_id'
     )
+    artist_name = StringField(
+        'artist_name'
+    )
+    venue_name = StringField(
+        'venue_name'
+    )
     venue_id = StringField(
         'venue_id'
+    )
+    artist_image_link = StringField(
+        'artist_image_link'
+    )
+
+    venue_image_link = StringField(
+        'venue_image_link'
     )
     start_time = DateTimeField(
         'start_time',
         validators=[DataRequired()],
-        default= datetime.today()
+        default=datetime.today()
     )
+
 
 class VenueForm(Form):
     name = StringField(
@@ -82,15 +97,27 @@ class VenueForm(Form):
     address = StringField(
         'address', validators=[DataRequired()]
     )
+
+    """ seeking_talent = BooleanField(
+        'seeking_talent', default='checked'
+
+    ) """
+
+    seeking_description = StringField(
+        'seeking_description'
+    )
     phone = StringField(
         'phone'
     )
     image_link = StringField(
         'image_link'
     )
+    website = StringField(
+        'website'
+    )
     genres = SelectMultipleField(
         # TODO implement enum restriction
-        'genres', validators=[DataRequired()],
+        'genres',
         choices=[
             ('Alternative', 'Alternative'),
             ('Blues', 'Blues'),
@@ -114,8 +141,10 @@ class VenueForm(Form):
         ]
     )
     facebook_link = StringField(
-        'facebook_link', validators=[URL()]
+        'facebook_link'
+        # validators=[URL()]
     )
+
 
 class ArtistForm(Form):
     name = StringField(
@@ -186,6 +215,19 @@ class ArtistForm(Form):
     )
     image_link = StringField(
         'image_link'
+    )
+
+    """ seeking_venue = BooleanField(
+        'seeking_venue', default=True
+
+    ) """
+
+    website = StringField(
+        'website'
+    )
+
+    seeking_description = StringField(
+        'seeking_description'
     )
     genres = SelectMultipleField(
         # TODO implement enum restriction
